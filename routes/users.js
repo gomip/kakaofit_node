@@ -9,13 +9,11 @@ const users = require('../model/User');
 router.get('/', function (req, res, next) {
     users.find()
         .then(user => {
-            console.log('API : GET Completed');
-            res.status(200).json({
-                message: 'API : GET Completed',
-                data: {
-                    user: user
-                }
-            });
+            console.log('API : GET User Completed');
+            // res.status(200).json({
+            //     user: user
+            // });
+            res.json(user)
         }).catch(err => {
         res.status(500).json({
             message: err
@@ -33,14 +31,12 @@ router.post('/', function (req, res, next) {
     postUser.createdAt = Date.now();
 
     postUser.save()
-        .then(data => {
-            console.log('API : POST Completed');
-            res.status(200).json({
-                message: "'API : POST Completed',",
-                data: {
-                    user: data
-                }
-            });
+        .then(user => {
+            console.log('API : POST User Completed');
+            // res.status(200).json({
+            //     user: user
+            // });
+            res.json(user)
         }).catch(err => {
         res.status(500).json({
             message: err

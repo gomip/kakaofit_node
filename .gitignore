@@ -68,3 +68,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# secret key
+config
+.env

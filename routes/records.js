@@ -12,13 +12,11 @@ router.get('/:id', function (req, res, next) {
 
     records.find().where('id').equals(id)
         .then(record => {
-            console.log('API : GET Completed')
-            res.status(200).json({
-                message: 'API : GET Completed',
-                data: {
-                    record: record
-                }
-            });
+            console.log('API : GET Records Completed')
+            // res.status(200).json({
+            //     record: record
+            // });
+            res.json(record)
         }).catch(err => {
         res.status(500).json({
             message: err
@@ -31,27 +29,22 @@ router.get('/week/:id/:date', function (req, res, next) {
     const id = req.params.id;
     const date = new Date(req.params.date);
 
-    console.log('date', date)
-
     const first = date.getDate() - date.getDay() + 1
     const last = first + 6;
 
     const firstDay = moment(new Date(date.setDate(first)).toUTCString()).format('YYYY-MM-DD');      // 오늘 날짜를 포함한 주의 첫째 날 조회
     const lastDay = moment(new Date(date.setDate(last)).toUTCString()).format('YYYY-MM-DD');        // 오늘 날짜를 포함한 주의 마지막 날 조회
 
-
     records.find().where('id').equals(id)
         .where('record_date').lte(lastDay)
         .where('record_date').gte(firstDay)
         .sort('record_date')
         .then(record => {
-            console.log('API : GET Completed');
-            res.status(200).json({
-                message: 'API : GET Completed',
-                data: {
-                    record: record
-                }
-            });
+            console.log('API : GET Records by week Completed');
+            // res.status(200).json({
+            //     record: record
+            // });
+            res.json(record)
         }).catch(err => {
         res.status(500).json({
             message: err
@@ -71,14 +64,12 @@ router.post('/:id', function (req, res, next) {
     postRecord.time = time;
 
     postRecord.save()
-        .then(data => {
-            console.log('API : POST Completed',);
-            res.status(200).json({
-                message: 'API : POST Completed',
-                data: {
-                    record: data
-                }
-            });
+        .then(record => {
+            console.log('API : POST Record Completed');
+            // res.status(200).json({
+            //     record: record
+            // });
+            res.json(record)
         }).catch(err => {
         res.status(500).json({
             message: err

@@ -1,11 +1,11 @@
 // 2021.02.08 | gomip | created
 
 // Initialization
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 // Connection
 const connect = () => {
-    mongoose.connect('mongodb+srv://gomip:rkskek12@cluster0.zri1d.mongodb.net/personal?retryWrites=true&w=majority', {
+    mongoose.connect(process.env.MONGODB, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,

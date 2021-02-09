@@ -6,8 +6,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const port = 3031
-const connect = require('./schemas')
+const port = 3031;
+const connect = require('./schemas');
+
+// dotenv 설정
+require('dotenv').config();
 
 // Router
 const indexRouter = require('./routes/index');
@@ -19,6 +22,13 @@ connect()
 
 const app = express();
 
+// CORS Setting
+app.all('/*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+  res.header('Access-Control-Allow-Headers','X-Requested-With');
+  next();
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -28,6 +38,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // API 라우팅ㅡ
 app.use('/', indexRouter);
