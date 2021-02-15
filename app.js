@@ -7,6 +7,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const port = 3031;
+const secret = process.env.SECRET_KEY;
 const connect = require('./schemas');
 
 // dotenv 설정
