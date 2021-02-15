@@ -24,7 +24,7 @@ const app = express();
 
 // CORS Setting
 app.all('/*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', ['http://localhost:3001', 'http://kakaofit.gomip.ml:3001']);
+  res.header('Access-Control-Allow-Origins', ['http://localhost:3001', 'http://kakaofit.gomip.ml:3001']);
   res.header('Access-Control-Allow-Headers','X-Requested-With');
   next();
 });
