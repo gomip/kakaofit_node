@@ -24,7 +24,7 @@ const app = express();
 
 // CORS Setting
 app.all('/*', function(req, res, next) {
-  const allowed = ['http://localhost:3001', 'http://kakaofit.gomip.ml:3001'];
+  const allowed = ['http://localhost:3001', 'http://kakaofit.gomip.ml:3001', 'http://kakaofit.gomip.ml'];
   const origin = req.headers.origin;
   if (allowed.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin)
