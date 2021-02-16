@@ -8,7 +8,8 @@ const record = new mongoose.Schema({
     id: {type: Number, required: true},
     record_date: {type: Date, required: true},
     kcal: {type: Number, required: true},
-    time: {type: Number, required: true}
+    time: {type: Number, required: true},
+    path: {type: String},
 },{
     timestamps: true
 });
