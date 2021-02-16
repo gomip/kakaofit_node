@@ -33,10 +33,10 @@ router.get('/week/:id/:date', function (req, res, next) {
     const last = first + 6;
 
     const firstDay = moment(new Date(date.setDate(first)).toUTCString()).format('YYYY-MM-DD');      // 오늘 날짜를 포함한 주의 첫째 날 조회
-    const lastDay = moment(new Date(date.setDate(last)).toUTCString()).format('YYYY-MM-DD');        // 오늘 날짜를 포함한 주의 마지막 날 조회
+    const lastDay = moment(new Date(date.setDate(last)).toUTCString()).add(1,'day').format('YYYY-MM-DD');        // 오늘 날짜를 포함한 주의 마지막 날 조회
 
     records.find().where('id').equals(id)
-        .where('record_date').lte(lastDay)
+        .where('record_date').lt(lastDay)
         .where('record_date').gte(firstDay)
         .sort('record_date')
         .then(record => {
@@ -59,7 +59,7 @@ router.post('/:id', function (req, res, next) {
 
     const postRecord = new records();
     postRecord.id = id;
-    postRecord.record_date = record_date;
+    postRecord.record_date = moment(new Date(record_date)).format('YYYY-MM-DD');
     postRecord.kcal = kcal;
     postRecord.time = time;
 
