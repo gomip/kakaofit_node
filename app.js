@@ -10,28 +10,6 @@ const port = 3031;
 const secret = process.env.SECRET_KEY;
 const connect = require('./schemas');
 
-// https, lets encrypt
-// var domain = 'kakaofit.gomip.ml';
-// const fs = require('fs');
-// const path = require('path');
-// const HTTPS = require('https');
-//
-// const sslport = 443;
-// try {
-//   const option = {
-//     ca: fs.readFileSync('/etc/letsencrypt/live/' + domain+ '/fullchain.pem'),
-//     key: fs.readFileSync(path.resolve(process.cwd(), '/etc/letsencrypt/live/' + domain+ '/privkey.pem'), 'utf8').toString(),
-//     cert: fs.readFileSync(path.resolve(process.cwd(), '/etc/letsencrypt/live/' + domain+ '/cert.pem'), 'utf8').toString(),
-//   };
-//
-//   HTTPS.createServer(option, app).listen(sslport, () => {
-//     console.log('[HTTPS] Server is started on port 443');
-//   });
-// } catch (error) {
-//   console.log('[HTTPS] Server is not Active. Please Check Your Server');
-//   console.log(error);
-// }
-
 // dotenv 설정
 require('dotenv').config();
 
