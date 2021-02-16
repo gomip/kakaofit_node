@@ -79,10 +79,9 @@ router.get('/week/:id/:date', function (req, res, next) {
 })
 
 // 기록 저장
-router.post('/:id', function (req, res, next) {
+router.post('/:id', upload.single("imgFile"), function (req, res, next) {
     const id = req.params.id;
     const {record_date, kcal, time, path} = req.body;
-
     const postRecord = new records();
     postRecord.id = id;
     postRecord.record_date = moment(new Date(record_date)).format('YYYY-MM-DD');
