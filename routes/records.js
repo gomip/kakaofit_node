@@ -6,6 +6,32 @@ const router = express.Router();
 const records = require('../model/Record');
 const moment = require('moment');
 
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+
+// S3
+const aws = require('aws-sdk');
+aws.config.loadFromPath(__dirname+"/../awsconfig.json");
+
+let s3 = new aws.S3();
+
+// upload
+const upload = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: 'kakaofit', // 버킷 이름
+        contentType: multerS3.AUTO_CONTENT_TYPE, // 자동으로 콘텐츠 타입 세팅
+        acl: 'public-read',
+    }),
+    limits: {fileSize: 5 * 1024 * 1024},
+});
+
+
+router.post('/upload', upload.single("imgFile"), function(req, res, next) {
+    let imgFile = req.file;
+    res.json(imgFile);
+})
+
 // 개인의 기록 전체 조회
 router.get('/:id', function (req, res, next) {
     const id = req.params.id;
@@ -53,10 +79,9 @@ router.get('/week/:id/:date', function (req, res, next) {
 })
 
 // 기록 저장
-router.post('/:id', function (req, res, next) {
+router.post('/:id', upload.single("imgFile"), function (req, res, next) {
     const id = req.params.id;
     const {record_date, kcal, time, path} = req.body;
-
     const postRecord = new records();
     postRecord.id = id;
     postRecord.record_date = moment(new Date(record_date)).format('YYYY-MM-DD');
