@@ -7,6 +7,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const port = 3031;
+const secret = process.env.SECRET_KEY;
 const connect = require('./schemas');
 
 // dotenv 설정
@@ -24,12 +25,12 @@ const app = express();
 
 // CORS Setting
 app.all('/*', function(req, res, next) {
-  const allowed = ['http://localhost:3001', 'http://kakaofit.gomip.ml:3001'];
+  const allowed = ['http://localhost:3001', 'http://kakaofit.gomip.ml:3001', 'http://kakaofit.gomip.ml'];
   const origin = req.headers.origin;
   if (allowed.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin)
   }
-  // res.header('Access-Control-Allow-Origin', ['http://localhost:3001', 'http://kakaofit.gomip.ml:3001']);
+  // res.header('Access-Control-Allow-Origin', ['http://localhost:3001', 'http://kakaofit.gomip.ml:3001', 'http://kakaofit.gomip.ml]);
   res.header('Access-Control-Allow-Headers','X-Requested-With');
   next();
 });
