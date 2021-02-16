@@ -12,7 +12,6 @@ const multerS3 = require('multer-s3');
 // S3
 const aws = require('aws-sdk');
 aws.config.loadFromPath(__dirname+"/../awsconfig.json");
-
 let s3 = new aws.S3();
 
 // upload
@@ -82,6 +81,7 @@ router.get('/week/:id/:date', function (req, res, next) {
 router.post('/:id', upload.single("imgFile"), function (req, res, next) {
     const id = req.params.id;
     const {record_date, kcal, time, path} = req.body;
+
     const postRecord = new records();
     postRecord.id = id;
     postRecord.record_date = moment(new Date(record_date)).format('YYYY-MM-DD');
