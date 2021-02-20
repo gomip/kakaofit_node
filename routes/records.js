@@ -86,7 +86,7 @@ router.get('/week/:id/:date', function (req, res, next) {
 // 기록 저장
 router.post('/:id', upload.single("imgFile"), function (req, res, next) {
     const id = req.params.id;
-    const {record_date, kcal, time, path} = req.body;
+    const {record_date, kcal, time} = req.body;
 
     const year =  moment(new Date(req.body.record_date)).year();
     const month =  moment(new Date(req.body.record_date)).month() + 1;
@@ -96,8 +96,9 @@ router.post('/:id', upload.single("imgFile"), function (req, res, next) {
     postRecord.record_date = moment(new Date(record_date)).format('YYYY-MM-DD');
     postRecord.kcal = kcal;
     postRecord.time = time;
-    postRecord.path = 'https://kakaofit.s3.ap-northeast-2.amazonaws.com/'+ id + '/' + year  + '/' + month + req.file.originalname;
+    postRecord.path = 'https://kakaofit.s3.ap-northeast-2.amazonaws.com/'+ id + '/' + year  + '/' + month + '/' + req.file.originalname;
 
+    console.log('postRecord', postRecord);
     postRecord.save()
         .then(record => {
             console.log('API : POST Record Completed');
