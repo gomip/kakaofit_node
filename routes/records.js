@@ -81,8 +81,7 @@ router.get('/week/:id/:date', function (req, res, next) {
             message: err
         });
     });
-})
-
+});
 
 // 기록 저장
 router.post('/:id', upload.single("imgFile"), function (req, res, next) {
