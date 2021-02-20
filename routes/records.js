@@ -18,9 +18,15 @@ let s3 = new aws.S3();
 const upload = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'kakaofit', // 버킷 이름
+        bucket: (req, res, cb) => {
+            cb(null,'kakaofit/' + req.params.id + '/' + moment(new Date(req.body.record_date)).year() + '/' + (moment(new Date(req.body.record_date)).month()+1));
+        }, // 버킷 이름
         contentType: multerS3.AUTO_CONTENT_TYPE, // 자동으로 콘텐츠 타입 세팅
         acl: 'public-read',
+        key: function (req, file, cb) {
+            let filename = file.originalname;
+            cb(null, filename);
+        }
     }),
     limits: {fileSize: 5 * 1024 * 1024},
 });
@@ -82,11 +88,15 @@ router.post('/:id', upload.single("imgFile"), function (req, res, next) {
     const id = req.params.id;
     const {record_date, kcal, time, path} = req.body;
 
+    const year =  moment(new Date(req.body.record_date)).year();
+    const month =  moment(new Date(req.body.record_date)).month() + 1;
+
     const postRecord = new records();
     postRecord.id = id;
     postRecord.record_date = moment(new Date(record_date)).format('YYYY-MM-DD');
     postRecord.kcal = kcal;
     postRecord.time = time;
+    postRecord.path = 'https://kakaofit.s3.ap-northeast-2.amazonaws.com/'+ id + '/' + year  + '/' + month + req.file.originalname;
 
     postRecord.save()
         .then(record => {
