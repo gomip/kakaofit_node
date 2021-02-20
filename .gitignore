@@ -72,4 +72,4 @@ Temporary Items
 # secret key
 config
 .env
-.awsconfig.json
+awsconfig.json
