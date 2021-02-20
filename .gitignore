@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+# secret key
+config
+.env
+awsconfig.json
 # testing
 /coverage
 
@@ -68,8 +72,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
-# secret key
-config
-.env
-awsconfig.json
