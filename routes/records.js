@@ -60,12 +60,11 @@ router.get('/week/:id/:date', function (req, res, next) {
     const id = req.params.id;
     const date = new Date(req.params.date);
     const date2 = new Date(req.params.date);
-
-    const first = date.getDate() - date.getDay() + 1
+    const first = date2.getDate() - date2.getDay() + (date.getDay() === 0 ? -6 : 1);
     const last = first + 6;
 
-    const firstDay = moment(new Date(date2.setDate(first)).toUTCString()).format('YYYY-MM-DD');      // 오늘 날짜를 포함한 주의 첫째 날 조회
-    const lastDay = moment(new Date(date2.setDate(last)).toUTCString()).add(1,'day').format('YYYY-MM-DD');        // 오늘 날짜를 포함한 주의 마지막 날 조회
+    const firstDay = moment(new Date(date.setDate(first)).toUTCString()).format('YYYY-MM-DD');      // 오늘 날짜를 포함한 주의 첫째 날 조회
+    const lastDay = moment(new Date(date.setDate(last)).toUTCString()).add(1,'day').format('YYYY-MM-DD');        // 오늘 날짜를 포함한 주의 마지막 날 조회
 
     records.find().where('id').equals(id)
         .where('record_date').lt(lastDay)
